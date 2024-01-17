@@ -23,8 +23,8 @@ import {
     return await updateProductRep(productId, updatedFields);
   };
   
-  const updateAvailability = async (productId: string, newAvailability: boolean): Promise<ProductDoc | null> => {
-    return await updateAvailability(productId, newAvailability);
+  const updateAvailability = async (productId: string): Promise<ProductDoc | null> => {
+    return await updateAvailability(productId);
   };
   
   const deleteProduct = async (productId: string) => {

@@ -13,7 +13,7 @@ const router = Router();
 router.get('/', getAllProductsController);
 router.get('/:id', getProductByIdController);
 router.post('/', createProductController);
-router.patch('/:id', updateProductController);
+router.put('/:id', updateProductController);
 router.patch('/:id/availability', updateAvailabilityController); 
 router.delete('/:id', deleteProductController);
 

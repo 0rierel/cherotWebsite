@@ -10,7 +10,9 @@ const getAllProducts = async (): Promise<ProductDoc[]> => {
   }
 };
 
-const getProductById = async (productId: string): Promise<ProductDoc | null> => {
+const getProductById = async (
+  productId: string
+): Promise<ProductDoc | null> => {
   try {
     const product = await Product.findById(productId);
     return product;
@@ -28,9 +30,16 @@ const createProduct = async (newProduct: ProductDoc): Promise<ProductDoc> => {
   }
 };
 //put
-const updateProduct = async (productId: string, updatedFields: Partial<ProductDoc>): Promise<ProductDoc | null> => {
+const updateProduct = async (
+  productId: string,
+  updatedFields: Partial<ProductDoc>
+): Promise<ProductDoc | null> => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(productId, updatedFields, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      updatedFields,
+      { new: true }
+    );
     return updatedProduct;
   } catch (error: any) {
     throw new Error(`Failed to update product: ${error.message}`);
@@ -38,13 +47,17 @@ const updateProduct = async (productId: string, updatedFields: Partial<ProductDo
 };
 
 //patch
-const updateAvailability = async (productId: string, newAvailability: boolean): Promise<ProductDoc | null> => {
+const updateAvailability = async (
+  productId: string
+): Promise<ProductDoc | null> => {
   try {
+    // Update the product's availability to the opposite of the current state
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      { availability: newAvailability },
+      { $set: { availability: { $not: "$availability" } } },
       { new: true }
     );
+
     return updatedProduct;
   } catch (error: any) {
     throw new Error(`Failed to update availability: ${error.message}`);
@@ -65,5 +78,5 @@ export {
   createProduct,
   updateProduct,
   deleteProduct,
-  updateAvailability
+  updateAvailability,
 };
